@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="C:\Users\User\node_modules\web3\dist\web3.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	   	<script src="bootstrap.min.js"></script>
+		<link rel="stylesheet" href="style.css">
+        <title>Smart contract reader</title>        
+        <h1>Smart contract reader</h1>
+        <h2 id='pirkejas'></h2>
+	</head>
+	<body>
+        <div>
+            <br><br><br><br>
+            <input type="button" id="mygtukas1" value="Nusipirkta">
+            <br>
+            <br>
+            <input type="button" id="mygtukas2" value="Parduota"> 
+            <br>
+            <br>
+            <input type="button" id="mygtukas1" value="Issiusta"> 
+            <br>
+            <br>
+            <input type="button" id="mygtukas1" value="Gauta"> 
+        </div>
+		
+        <script>
+			/*var web3;
+			var address = "0x62d75FEF1fF08348197CE1c225dAffDA7fcfe589";
+
+			async function Connect() {
+				await window.web3.currentProvider.enable();
+				web3=new Web3(window.web3.currentProvider);
+			}
+
+			if(typeof web3 !== 'undefine'){
+				web3 = new Web3(window.web3.currentProvider);
+			}
+			else {
+				web3 = new Web3(new Web3.Provider.HttpProvider("HTTP://127.0.0.1:7545"));
+			}
+
+			var abi = [[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "setCandidate",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"inputs": [],
+		"type": "constructor",
+		"payable": true,
+		"stateMutability": "payable"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "candidateName",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	}
+]];
+			var contract = new web3.eth.Contract(abi,address);		*/	
+
+            if (typeof web3 !== 'undefined') {
+                web3 = new Web3(web3.currentProvider);
+            } else {
+                web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+            }
+
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+
+            var contractAbi = [
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "candidateName",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "view"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "setCandidate",
+		"outputs": [],
+		"payable": false,
+		"type": "function",
+		"stateMutability": "nonpayable"
+	},
+	{
+		"inputs": [],
+		"type": "constructor",
+		"payable": true,
+		"stateMutability": "payable"
+	}
+]; // Add Your Contract ABI here!!!
+
+            var contractAddress = '0xd4aD86A84f8BB52BFA3c99a9aE47d810DE7f94B8';
+
+
+			
+			var MyContract = new web3.eth.Contract(contractAbi, contractAddress);
+
+			//MyContract.Election.call().then(function(res){
+    		//console.log(res);
+			//}).catch(function(err) {
+    		//console.log(err);
+			//});
+
+			MyContract.Election.setCandidate('name').call(function (err, res) {
+  			if (err) {
+    		console.log("An error occured", err)
+    		return
+  			}
+  			console.log("The balance is: ", res)
+			})
+
+
+
+			//MyContract.Election().call().then(function(res){
+			//	console.log(res);
+			//})
+            // Set the Contract
+            //var contract = web3.eth.contract(contractAbi).at(contractAddress);
+
+			/*MyContract.candidateName(function(err, candidateName) {
+        	$('#candidateName').html(candidateName);
+      		});
+
+      		// Change the Candidate Name
+      		$('form').on('submit', function(event) {
+        	event.preventDefault();
+        	contract.setCandidate($('input').val());
+      		})
+            //contract.Buyer(function(err, BuyerPays) {
+            //    $('#pirkejas').html(BuyerPays);
+            //});*/
+        </script>
+    </body>
+</html>
