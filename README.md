@@ -7,6 +7,7 @@ Front-end programa leidžia spėti kas iškris ir jei atspėji teisingai pinigai
 Išmanioji sutartis buvo testuota Ganache lokalioje blokų grandinėje bei Ropsten testiniame tinkle.  
 ## Etherscan:  
 ![image](https://user-images.githubusercontent.com/79039786/146455804-245c44ee-f743-44e7-8492-72806c03e39c.png)  
+![image](https://user-images.githubusercontent.com/79039786/146455979-d9e3967e-2509-4251-805f-0d8d12c92b9c.png)  
 
 ## Front-end Dapp:  
 Front-end programa buvo kuriama su HTML, JavaScript ir CSS kalbomis. Išmanioji sutartis veikė lokalioje Ganache grandinėje, buvo naudojamasi Web3 biblioteka bei MetaMask.  
