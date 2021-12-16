@@ -5,79 +5,49 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	   	<script src="bootstrap.min.js"></script>
 		<link rel="stylesheet" href="style.css">
-        <title>Smart contract reader</title>        
-        <h1>Smart contract reader</h1>
+        <title>Heads or Tails</title>        
+        <h1>Choose: heads or tails</h1>
         <h2 id='pirkejas'></h2>
 	</head>
 	<body>
         <div>
-            <br><br><br><br>
-            <input type="button" id="mygtukas1" value="Nusipirkta">
-            <br>
-            <br>
-            <input type="button" id="mygtukas2" value="Parduota"> 
-            <br>
-            <br>
-            <input type="button" id="mygtukas1" value="Issiusta"> 
-            <br>
-            <br>
-            <input type="button" id="mygtukas1" value="Gauta"> 
+			<section class="mokekblt">
+				<input type="text" id="adresas1" placeholder="Enter your address">
+				<input type="text" id="suma" placeholder="ether">
+				<input type="button" id="mokek" value="pay" onclick="investMoney()">
+			</section>
+			<br>
+            <section class="HeadsTails">
+				<input type="button" id="heads" value="HEADS" onclick="ChooseHeads()">
+				<input type="button" id="tails" value="TAILS" onclick="ChooseTails()">
+			</section>
+			<section class="yourChosen"></section>
+			</section>
+			<br>
+			<section class="flip">
+				<input type="button" id="flipButton" value="FLIP" onclick="DoaFlip()">
+				<input type="button" id="resetButton" value="NEW GAME" onclick="reset()">
+			</section>
+			<section class="foto">
+				<img src="tails.jpg" alt="tails" class="coinTails paslepti">
+				<img src="heads.jpg" alt="heads" class="coinHeads paslepti">
+				<img src="side.jpg" alt="side" class="coinSide paslepti">
+			</section>
+			<section class="result1"></section>
         </div>
+
 		
         <script>
-			/*var web3;
-			var address = "0x62d75FEF1fF08348197CE1c225dAffDA7fcfe589";
+			var headsShowing = 0;
+			var sidesShowing = 0;
+			var tailsShowing = 0;
 
-			async function Connect() {
-				await window.web3.currentProvider.enable();
-				web3=new Web3(window.web3.currentProvider);
-			}
+			const headsCoin = document.querySelector('.coinHeads');
+			const tailsCoin = document.querySelector('.coinTails');
+			const sideCoin = document.querySelector('.coinSide');
 
-			if(typeof web3 !== 'undefine'){
-				web3 = new Web3(window.web3.currentProvider);
-			}
-			else {
-				web3 = new Web3(new Web3.Provider.HttpProvider("HTTP://127.0.0.1:7545"));
-			}
-
-			var abi = [[
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "setCandidate",
-		"outputs": [],
-		"payable": false,
-		"type": "function",
-		"stateMutability": "nonpayable"
-	},
-	{
-		"inputs": [],
-		"type": "constructor",
-		"payable": true,
-		"stateMutability": "payable"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "candidateName",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
-	}
-]];
-			var contract = new web3.eth.Contract(abi,address);		*/	
-
+			const resultyes = document.querySelector('.result1');
+			const whatYouCose = document.querySelector('.yourChosen');
             if (typeof web3 !== 'undefined') {
                 web3 = new Web3(web3.currentProvider);
             } else {
@@ -85,84 +55,209 @@
             }
 
             web3.eth.defaultAccount = web3.eth.accounts[0];
-
             var contractAbi = [
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "candidateName",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "",
-				"type": "string"
+				"name": "number",
+				"type": "uint256"
 			}
 		],
+		"name": "choose",
+		"outputs": [],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_name",
-				"type": "string"
+				"name": "addressX",
+				"type": "address"
 			}
 		],
-		"name": "setCandidate",
+		"name": "Loser",
 		"outputs": [],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "nonpayable"
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
-		"type": "constructor",
+		"name": "outcome",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "seeOutcome",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "addressX",
+				"type": "address"
+			}
+		],
+		"name": "SeeWinner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "flip",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "winner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "invest",
+		"outputs": [],
 		"payable": true,
-		"stateMutability": "payable"
+		"stateMutability": "payable",
+		"type": "function"
 	}
-]; // Add Your Contract ABI here!!!
-
-            var contractAddress = '0xd4aD86A84f8BB52BFA3c99a9aE47d810DE7f94B8';
-
-
-			
+];
+            var contractAddress = '0x7a383Fa05b1929A6d66326dc164f3DF86F7D1208';
 			var MyContract = new web3.eth.Contract(contractAbi, contractAddress);
 
-			//MyContract.Election.call().then(function(res){
-    		//console.log(res);
-			//}).catch(function(err) {
-    		//console.log(err);
-			//});
+			function ChooseHeads() {
+				MyContract.methods.choose(1).send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'});
+				whatYouCose.innerHTML = 'HEADS';
+			}
 
-			MyContract.Election.setCandidate('name').call(function (err, res) {
-  			if (err) {
-    		console.log("An error occured", err)
-    		return
-  			}
-  			console.log("The balance is: ", res)
-			})
+			function ChooseTails() {
+				MyContract.methods.choose(2).send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'});
+				whatYouCose.innerHTML = 'TAILS';
+			}
 
+			function DoaFlip() {
+				MyContract.methods.flip().send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'});
+				MyContract.methods.seeOutcome().send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'});
+				showCoin();
+				MyContract.methods.winner().call(function(err,res){
+					if(res == 1) {
+						resultyes.innerHTML = 'Laimejai!'
+						transferMoney();
+					}
+					else if (res == 2) {
+						resultyes.innerHTML = 'Pralosei!'
+						nullMoney();
+					}
+				});
+			}
 
+			function transferMoney() {
+				var adresiukas = document.getElementById('adresas1').value;
+				MyContract.methods.SeeWinner(adresiukas).send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'}).then(res =>
+				console.log('success transfer', res));
+			}
 
-			//MyContract.Election().call().then(function(res){
-			//	console.log(res);
-			//})
-            // Set the Contract
-            //var contract = web3.eth.contract(contractAbi).at(contractAddress);
+			function nullMoney() {
+				var adresiukas = document.getElementById('adresas1').value;
+				MyContract.methods.Loser(adresiukas).send({from: '0x5900F4310d141D9e96acaD3C6361970195A15Bb7'}).then(res =>
+				console.log('success transfer loser', res));
+			}
 
-			/*MyContract.candidateName(function(err, candidateName) {
-        	$('#candidateName').html(candidateName);
-      		});
+			function investMoney () {
+				var adresiukas = document.getElementById('adresas1').value;
+				var sumiukas = document.getElementById('suma').value;
+				MyContract.methods.invest().send({
+                                                    from: adresiukas, 
+                                                    value: sumiukas 
+                                                   })
+                                            .then(res => 
+                                                  console.log('Success', res))
+                                            .catch(err => console.log(err)) 
+			}
 
-      		// Change the Candidate Name
-      		$('form').on('submit', function(event) {
-        	event.preventDefault();
-        	contract.setCandidate($('input').val());
-      		})
-            //contract.Buyer(function(err, BuyerPays) {
-            //    $('#pirkejas').html(BuyerPays);
-            //});*/
+			function showCoin() {
+				MyContract.methods.outcome().call(function(err,res){
+					console.log(res);
+					if(res == 1) {
+						headsCoin.classList.remove('paslepti');
+						headsShowing = 1;
+					}
+					else if (res == 2) {
+						tailsCoin.classList.remove('paslepti');
+						tailsShowing = 1;
+					}
+					else if(res == 3) {
+						sideCoin.classList.remove('paslepti');
+						sidesShowing = 1;
+					}
+					
+				});
+			}
+
+			function reset() {
+				window.location.href = "file:///C:/Users/User/Desktop/uni/Semestras%203/Blockchain/smartContractDapp/web.html";
+				/*
+				if(headsShowing != 1){
+					headsCoin.classList.add('paslepti');
+					headsShowing = 0;
+				}
+				if(tailsShowing != 1){
+					tailsCoin.classList.add('paslepti');
+					tailsShowing = 0;
+				}
+				if(sidesShowing != 1){
+					sideCoin.classList.add('paslepti');
+					sidesShowing = 0;
+				}
+				whatYouCose.innerHTML = '';*/
+			}
+			
         </script>
     </body>
 </html>
