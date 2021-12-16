@@ -15,4 +15,5 @@ Pervedami pinigai man atgal:
 ## Front-end Dapp:  
 Front-end programa buvo kuriama su HTML, JavaScript ir CSS kalbomis. Išmanioji sutartis veikė lokalioje Ganache grandinėje, buvo naudojamasi Web3 biblioteka bei MetaMask.  
 # Dapp vaizdai:  
+![image](https://user-images.githubusercontent.com/79039786/146456972-a897ce86-590d-47b5-9e17-955b54d58a19.png)  
 
