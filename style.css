@@ -1,7 +1,19 @@
 h1 {
     text-align: center;
     border-bottom: 1px solid black;
-
+    font-style: Helvetica;
+}
+input[type="text"] {
+    background-color: #89CFF0;
+    border-color: #6CB4EE;
+    border-radius: 5px;
+    padding: 8px 20px;
+    width: 200px;
+    font-style: Helvetica;
+    font-size: 1.2rem;
+}
+#suma {
+    width: 50px;
 }
 input {
     font-size: 1.2rem;
@@ -9,11 +21,53 @@ input {
     border-color: #6CB4EE;
     border-radius: 5px;
     padding: 15px 40px;
-    width: 200px;
+    width: 150px;
+    font-style: Helvetica;
 }
 input:hover{
     background-color: white;
 }
 div {
     text-align: center;
+}
+.result1 {
+    margin-top: 1em;
+    color: black;
+    font-size: 50px;
+    font-style: Helvetica;
+    font-weight: bold;
+}
+.yourChosen {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: #B8860B;
+    font-size: 40px;
+    font-style: Helvetica;
+    font-weight: bold;
+}
+#heads:focus {
+    background-color:#B8860B;
+    border-color: #8B4513;
+  }
+#mokek {
+    padding: 8px 20px;
+    width: 100px;
+    background-color: #DC143C;
+    border-color: #A52A2A;
+}
+#mokek:hover{
+    background-color: white;
+}
+#flipButton:hover {
+    background-color: white;
+}
+
+.paslepti {
+    display: none;
+}
+.foto {
+    align-items: center;
+}
+#resetButton {
+    width: 200px;
 }
